@@ -1,0 +1,205 @@
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Meow:: Zawgyi to Unicode, Unicode to Zawgyi Converter</title>
+		<meta
+			name="description"
+			content="Zawgyi to Unicode, Unicode to Zawgyi Converter"
+		/>
+		<meta name="keywords" content="PJK-MEOW,Zawgyi,Unicode,Converter,Convert" />
+		<meta name="author" content="PJK-MEOW" />
+		<meta charset="utf-8" />
+		<script defer src="meow.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			id="theme"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="http://mmwebfonts.comquas.com/fonts/?font=notosan"
+		/>
+		<link
+			rel="stylesheet"
+			href="http://mmwebfonts.comquas.com/fonts/?font=notosanzawgyi"
+		/>
+		<link rel="icon" href="favicon/favicon.ico" />
+		<link rel="manifest" href="favicon/manifest.json" />
+		<script type="text/javascript">
+			function clearText() {
+				document.getElementById('unicode').value = '';
+				document.getElementById('zawgyi').value = '';
+			}
+		</script>
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-164388245-1"
+			type="text/javascript"
+		></script>
+		<script type="text/javascript">
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-164388245-1');
+		</script>
+	</head>
+	<body class="user-select-none">
+		<div id="container">
+			<header>
+				<img
+					src="cat-face.png"
+					width="60"
+					height="60"
+					alt="PJK-MEOW"
+					class="shadow rounded-circle mt-1"
+				/>
+				<h2>Meow:: Zawgyi to Unicode, Unicode to Zawgyi Converter</h2>
+			</header>
+			<br />
+
+			<div id="textContainer">
+				<section id="Unicode">
+					<h3 class='my-1'>Unicode</h3>
+					<textarea
+						id="unicode"
+						class="rounded-lg shadow"
+						onfocus="handleOnFocus(this)"
+						onblur="handleOnBlur()"
+					>
+သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</textarea
+					>
+				</section>
+
+				<section id="Zawgyi">
+					<h3 class='my-1'>Zawgyi</h3>
+					<textarea
+						id="zawgyi"
+						class="rounded-lg shadow"
+						onfocus="handleOnFocus(this)"
+						onblur="handleOnBlur()"
+					>
+သီဟိုဠ္မွ ဉာဏ္ႀကီးရွင္သည္ အာယုဝၯနေဆးၫႊန္းစာကို ဇလြန္ေဈးေဘး ဗာဒံပင္ထက္ အဓိ႒ာန္လ်က္ ဂဃနဏဖတ္ခဲ့သည္။</textarea
+					>
+				</section>
+			</div>
+			<div id="textContainer">
+				<section id="buttons">
+					<input
+						class="btn btn-outline-danger shadow-lg"
+						type="button"
+						value="Clear Text"
+						onclick="clearText()"
+					/>
+					<input
+						type="button"
+						class="btn btn-outline-info shadow-lg"
+						value="Copy Zawgyi"
+						onclick="copyZawgyi()"
+					/>
+					<input
+						type="button"
+						class="btn btn-outline-warning shadow-lg"
+						value="Copy Unicode"
+						onclick="copyUnicode()"
+					/>
+				</section>
+			</div>
+			<footer class='m-0'>
+				Cloned by
+				<a href="https://bit.ly/3gfOc9s" target="_blank">PJK - MEOW</a>.
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			var textFieldInFocus;
+			function handleOnFocus(form_element) {
+				textFieldInFocus = form_element;
+			}
+			function handleOnBlur() {
+				textFieldInFocus = null;
+			}
+
+			var unicode = document.getElementById('unicode');
+			var zawgyi = document.getElementById('zawgyi');
+
+			onchangeHandler(unicode, zawgyi, 'uni2zg');
+			onchangeHandler(zawgyi, unicode, 'zg2uni');
+
+			function converter(textField, tochangeField, toconv) {
+				if (tochangeField != textFieldInFocus) {
+					if (toconv == 'uni2zg') {
+						tochangeField.value = Rabbit.uni2zg(textField.value);
+					} else {
+						tochangeField.value = Rabbit.zg2uni(textField.value);
+					}
+				}
+			}
+
+			function onchangeHandler(textField, tochangeField, toconv) {
+				if (textField.addEventListener) {
+					textField.addEventListener(
+						'input',
+						function () {
+							converter(textField, tochangeField, toconv);
+						},
+						false
+					);
+				} else if (textField.attachEvent) {
+					textField.attachEvent('onpropertychange', function () {
+						// IE
+						converter(textField, tochangeField, toconv);
+					});
+				}
+			}
+
+			function copyZawgyi() {
+				/* Get the text field */
+				var copyText = document.getElementById('zawgyi');
+
+				/* Select the text field */
+				copyText.select();
+				copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+				/* Copy the text inside the text field */
+				document.execCommand('copy');
+			}
+
+			function copyUnicode() {
+				/* Get the text field */
+				var copyText = document.getElementById('unicode');
+
+				/* Select the text field */
+				copyText.select();
+				copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+				/* Copy the text inside the text field */
+				document.execCommand('copy');
+			}
+
+			window.onload = function () {
+				var getTheme = document.getElementById('theme');
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				m += h * 60;
+
+				try {
+					if (m >= 1038 || m <= 360) {
+						document
+							.getElementsByTagName('link')[1]
+							.setAttribute(
+								'href',
+								'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/superhero/bootstrap.min.css'
+							);
+					}
+				} catch (error) {
+					console.log(error.messages);
+				}
+			};
+		</script>
+	</body>
+</html>
